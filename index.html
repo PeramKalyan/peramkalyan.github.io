@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peram Pavan Kalyan | Data Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: #0a0e27;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1a1f3a 0%, #0f1729 100%);
+            color: white;
+            padding: 25px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: hidden;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Profile Photo in Sidebar */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 18px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-photo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #00d9ff;
+            object-fit: cover;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .profile-section h1 {
+            font-size: 1.4em;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .profile-section .title {
+            font-size: 0.9em;
+            color: #00d9ff;
+            margin-bottom: 0;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 18px;
+        }
+
+        .nav-menu li {
+            margin-bottom: 2px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: #b0b8c9;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.88em;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            transform: translateX(3px);
+        }
+
+        .nav-menu a.active {
+            background: rgba(0, 217, 255, 0.15);
+            color: #00d9ff;
+            border-left: 3px solid #00d9ff;
+        }
+
+        .nav-menu .icon {
+            font-size: 1.1em;
+            width: 22px;
+        }
+
+        /* Contact Info in Sidebar */
+        .sidebar-contact {
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.75em;
+            color: #b0b8c9;
+        }
+
+        .contact-item .icon {
+            color: #00d9ff;
+            font-size: 1em;
+        }
+
+        .contact-item a {
+            color: #b0b8c9;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-item a:hover {
+            color: #00d9ff;
+        }
+
+        /* Right Content Area */
+        .content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 60px 70px;
+            background: #0a0e27;
+            min-height: 100vh;
+        }
+
+        .content-section {
+            animation: fadeIn 0.5s ease;
+            margin-bottom: 80px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #00d9ff;
+            margin-bottom: 35px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Profile Summary */
+        .summary-text {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #00d9ff;
+            font-size: 1.05em;
+            line-height: 1.9;
+            color: #d0d5e0;
+            margin-bottom: 25px;
+        }
+
+        .summary-text strong {
+            color: #00d9ff;
+        }
+
+        /* Experience Section */
+        .job-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #00d9ff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+
+        .job-card h3 {
+            color: #ffffff;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .job-card .company {
+            font-weight: 600;
+            color: #00d9ff;
+            font-size: 1.05em;
+            margin-bottom: 5px;
+        }
+
+        .job-card .duration {
+            color: #8892a6;
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .tech-stack {
+            background: rgba(0, 217, 255, 0.1);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #b0b8c9;
+        }
+
+        .tech-stack strong {
+            color: #00d9ff;
+        }
+
+        .job-card ul {
+            margin-left: 25px;
+            margin-top: 18px;
+        }
+
+        .job-card li {
+            margin-bottom: 12px;
+            color: #d0d5e0;
+            line-height: 1.7;
+        }
+
+        .job-card li::marker {
+            color: #00d9ff;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-category {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 25px;
+            border-radius: 10px;
+            border-top: 3px solid #00d9ff;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #00d9ff;
+            margin-bottom: 18px;
+            font-size: 1.15em;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(0, 217, 255, 0.15);
+            color: #00d9ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: 500;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        /* Certifications Section */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #00d9ff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cert-card.new-cert {
+            border-left-color: #00ff88;
+        }
+
+        .cert-card.new-cert::after {
+            content: "NEW!";
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #00ff88;
+            color: #0a0e27;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 700;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.2);
+        }
+
+        .cert-card h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .cert-card .issuer {
+            color: #00d9ff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cert-card .date {
+            color: #8892a6;
+            font-size: 0.9em;
+        }
+
+        /* Education Section */
+        .education-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #00d9ff;
+        }
+
+        .education-card h3 {
+            color: #ffffff;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .education-card .institution {
+            color: #00d9ff;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .education-card .duration {
+            color: #8892a6;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 31, 58, 0.8);
+            color: #8892a6;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 30px 20px;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .profile-photo {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(0, 217, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 217, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Profile Section with Photo -->
+            <div class="profile-section">
+                <img src="profile.jpg" alt="Peram Pavan Kalyan" class="profile-photo">
+                <h1>Peram Pavan Kalyan</h1>
+                <div class="title">Data Engineer</div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav>
+                <ul class="nav-menu">
+                    <li>
+                        <a href="#profile" class="nav-link active" data-section="profile">
+                            <span class="icon">👤</span>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#experience" class="nav-link" data-section="experience">
+                            <span class="icon">💼</span>
+                            <span>Experience</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#skills" class="nav-link" data-section="skills">
+                            <span class="icon">⚡</span>
+                            <span>Skills</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#certifications" class="nav-link" data-section="certifications">
+                            <span class="icon">🏆</span>
+                            <span>Certifications</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#education" class="nav-link" data-section="education">
+                            <span class="icon">🎓</span>
+                            <span>Education</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Contact Info -->
+            <div class="sidebar-contact">
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <span>Bangalore, India</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📱</span>
+                    <span>+91 8886919288</span>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📧</span>
+                    <a href="mailto:perampavan.pk@gmail.com">perampavan.pk@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">💼</span>
+                    <a href="https://www.linkedin.com/in/peramkalyan/" target="_blank">LinkedIn</a>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">💻</span>
+                    <a href="https://github.com/PeramKalyan" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Content Area -->
+        <main class="content">
+            <!-- Profile Section -->
+            <section id="profile" class="content-section">
+                <h2 class="section-title">Profile Summary</h2>
+
+                <div class="summary-text">
+                    Data Engineer with <strong>5+ years of experience</strong> specializing in <strong>Azure and AWS cloud platforms</strong>, with deep expertise in building scalable data pipelines and end-to-end data engineering solutions. Currently focused on AWS data engineering, leveraging services like <strong>S3, Glue, Lambda, Redshift, and Athena</strong> for enterprise-scale data processing.
+                    <br><br>
+                    Proven track record in designing and implementing <strong>ETL/ELT pipelines</strong> using Azure Data Factory and AWS Glue, with hands-on experience in <strong>Databricks and PySpark</strong> for large-scale data transformation. Expert in cloud data architectures utilizing <strong>Azure Data Lake Storage Gen2</strong> and <strong>Amazon S3</strong>, following industry best practices for data lake organization.
+                    <br><br>
+                    Strong foundation in <strong>data warehousing concepts</strong> including dimensional modeling, star/snowflake schemas, and analytical workloads on <strong>Azure Synapse Analytics</strong> and <strong>Amazon Redshift</strong>. Experienced in implementing <strong>incremental loads, CDC logic, data validation, and reconciliation</strong> to ensure data quality and accuracy.
+                    <br><br>
+                    Adept at working in <strong>Agile environments</strong>, collaborating with cross-functional teams, and delivering high-quality solutions within tight deadlines. Skilled in performance optimization, troubleshooting complex data issues, and providing mentorship to team members.
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="content-section">
+                <h2 class="section-title">Work Experience</h2>
+
+                <!-- AWS Role -->
+                <div class="job-card">
+                    <h3>AWS Data Engineer</h3>
+                    <div class="company">Cognizant Technology Solutions</div>
+                    <div class="duration">November 2024 - Present | Bangalore, India</div>
+                    <div class="tech-stack">
+                        <strong>Domain:</strong> Insurance<br>
+                        <strong>Technologies:</strong> AWS (S3, Glue, Lambda, Redshift, Athena), Snowflake, PostgreSQL, Python, SQL, Git, JIRA, ServiceNow
+                    </div>
+                    <ul>
+                        <li>Designed, developed, and maintained scalable data pipelines using AWS Glue for batch data processing, ensuring efficient data flow from source systems to target data warehouse</li>
+                        <li>Implemented ETL/ELT workflows to ingest data from multiple source systems into Amazon S3 data lake, organizing data using raw, curated, and consumption layers following best practices</li>
+                        <li>Developed and optimized complex SQL queries in Amazon Redshift and Snowflake to support analytics and reporting requirements for business stakeholders</li>
+                        <li>Responsible for development, implementation, administration, and support of ETL processes for large-scale Snowflake cloud data warehouse</li>
+                        <li>Implemented bulk loading from external stage (AWS S3) and internal stage (Snowflake) using COPY, LIST, PUT, and GET commands for data validation</li>
+                        <li>Performed data transformation, cleansing, and enrichment to ensure high data quality and consistency across all layers</li>
+                        <li>Implemented incremental and full load mechanisms with reconciliation and data validation checks to ensure data accuracy and completeness</li>
+                        <li>Monitored and troubleshot AWS Glue jobs and Redshift queries, resolving performance bottlenecks and data issues proactively</li>
+                        <li>Collaborated closely with business analysts and downstream teams to understand data requirements and ensure timely delivery of solutions</li>
+                        <li>Actively participated in Agile (Scrum) ceremonies including sprint planning, daily stand-ups, and retrospectives</li>
+                        <li>Managed tasks, defects, and enhancements using JIRA, ensuring timely delivery of assigned stories and maintaining high code quality</li>
+                        <li>Provided production support through ServiceNow for incidents and service requests, ensuring SLA compliance and minimal downtime</li>
+                    </ul>
+                </div>
+
+                <!-- Azure Role -->
+                <div class="job-card">
+                    <h3>Azure Data Engineer</h3>
+                    <div class="company">Cognizant Technology Solutions</div>
+                    <div class="duration">November 2020 - October 2024 | Bangalore, India</div>
+                    <div class="tech-stack">
+                        <strong>Domain:</strong> Insurance<br>
+                        <strong>Technologies:</strong> Azure Data Factory, Azure Databricks, Azure Synapse Analytics, ADLS Gen2, PySpark, Python, SQL, Azure DevOps, Git, JIRA
+                    </div>
+                    <ul>
+                        <li>Designed and developed end-to-end data pipelines using Azure Data Factory (ADF) for batch data ingestion from multiple source systems</li>
+                        <li>Implemented complex data transformations using Azure Databricks with PySpark, optimizing Spark jobs for performance and cost efficiency</li>
+                        <li>Built and maintained Azure Data Lake Storage Gen2 (ADLS) following best practices with raw, curated, and consumption layers for structured and semi-structured data</li>
+                        <li>Developed and optimized data models using Star and Snowflake schemas for analytical workloads, ensuring efficient query performance</li>
+                        <li>Worked extensively with Azure Synapse Analytics (Dedicated & Serverless SQL Pools) for data warehousing and reporting use cases</li>
+                        <li>Implemented incremental and full load strategies with CDC logic, including comprehensive data validation and reconciliation checks</li>
+                        <li>Performed rigorous source-to-target data validation to ensure 100% data accuracy and completeness across all pipelines</li>
+                        <li>Optimized SQL queries and Spark jobs to improve performance, reducing processing time by 40% and cutting compute costs</li>
+                        <li>Collaborated with business analysts, QA teams, and stakeholders to understand data requirements and translate them into technical solutions</li>
+                        <li>Actively participated in Agile (Scrum) ceremonies, contributing to sprint planning, daily stand-ups, sprint reviews, and retrospectives</li>
+                        <li>Managed code deployments and version control using Azure DevOps and Git, implementing CI/CD pipelines for automated deployments</li>
+                        <li>Provided production support, monitored pipelines using Azure Monitor and Log Analytics, and resolved data issues within SLA timelines</li>
+                        <li>Created and maintained technical documentation and knowledge base articles for recurring data issues and resolutions</li>
+                        <li>Mentored junior team members and new joiners, providing knowledge transfer on Azure data engineering best practices</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="content-section">
+                <h2 class="section-title">Technical Skills</h2>
+
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>☁️ Cloud Platforms</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Microsoft Azure</span>
+                            <span class="skill-tag">Amazon Web Services</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🔷 Azure Services</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Azure Data Factory</span>
+                            <span class="skill-tag">Azure Databricks</span>
+                            <span class="skill-tag">Azure Synapse Analytics</span>
+                            <span class="skill-tag">ADLS Gen2</span>
+                            <span class="skill-tag">Azure SQL Database</span>
+                            <span class="skill-tag">Azure Monitor</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🟠 AWS Services</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Amazon S3</span>
+                            <span class="skill-tag">AWS Glue</span>
+                            <span class="skill-tag">AWS Lambda</span>
+                            <span class="skill-tag">Amazon Redshift</span>
+                            <span class="skill-tag">Amazon Athena</span>
+                            <span class="skill-tag">Amazon RDS</span>
+                            <span class="skill-tag">CloudWatch</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>⚡ Big Data & Processing</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Apache Spark</span>
+                            <span class="skill-tag">PySpark</span>
+                            <span class="skill-tag">Databricks</span>
+                            <span class="skill-tag">Snowflake</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>💻 Programming Languages</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">PySpark</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🗄️ Databases</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Azure SQL Database</span>
+                            <span class="skill-tag">Azure Synapse SQL</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Oracle</span>
+                            <span class="skill-tag">Amazon Redshift</span>
+                            <span class="skill-tag">MySQL</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🔧 Data Engineering</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">ETL/ELT Pipelines</span>
+                            <span class="skill-tag">Data Modeling</span>
+                            <span class="skill-tag">CDC</span>
+                            <span class="skill-tag">Data Validation</span>
+                            <span class="skill-tag">Incremental Loads</span>
+                            <span class="skill-tag">Performance Tuning</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>🛠️ DevOps & Tools</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Azure DevOps</span>
+                            <span class="skill-tag">JIRA</span>
+                            <span class="skill-tag">ServiceNow</span>
+                            <span class="skill-tag">CI/CD Pipelines</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>📋 Methodologies</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Agile (Scrum)</span>
+                            <span class="skill-tag">Sprint Planning</span>
+                            <span class="skill-tag">Data Warehousing</span>
+                            <span class="skill-tag">Dimensional Modeling</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section -->
+            <section id="certifications" class="content-section">
+                <h2 class="section-title">Certifications</h2>
+
+                <div class="cert-grid">
+                    <div class="cert-card new-cert">
+                        <h3>Databricks Certified Data Engineer Associate</h3>
+                        <div class="issuer">Issued by Databricks</div>
+                        <div class="date">March 2026</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="content-section">
+                <h2 class="section-title">Education</h2>
+
+                <div class="education-card">
+                    <h3>Bachelor of Technology - Electrical and Electronics Engineering</h3>
+                    <div class="institution">Rajeev Gandhi Memorial College of Engineering & Technology</div>
+                    <div class="duration">2016 - 2020 | Kurnool, Andhra Pradesh</div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <p>&copy; 2026 Peram Pavan Kalyan. All rights reserved.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Navigation functionality - scroll to sections
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Get target section and scroll to it
+                const targetSection = link.getAttribute('data-section');
+                const targetElement = document.getElementById(targetSection);
+                
+                // Smooth scroll to section
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Update active nav item based on scroll position
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            contentSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
